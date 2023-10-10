@@ -9,9 +9,9 @@ class BaseModel:
 
     def __init__(self):
         """"BaseModel constructor"""
-        self.updated_at = datetime.now().isoformat()
         self.id = str(uuid.uuid4())
-        self.created_at = datetime.now().isoformat()
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
     def __str__(self):
         """Prints the string format representation of a BaseModel object"""
@@ -20,14 +20,16 @@ class BaseModel:
 
     def save(self):
         """Save BaseModel object data into file"""
-        self.updated_at = datetime.now().isoformat()
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """Maps the object's attributes into a dictionary
 
         Returns:
             A dictionary containing all keys/values"""
-        new_dict = {'__class__': type(self).__name__}
-        for key in self.__dict__:
-            new_dict[key] = self.__dict__[key]
+        #new_dict = {'__class__': type(self).__name__}
+        new_dict = {**self.__dict__}
+        new_dict['__class__'] = type(self).__name__
+        new_dict['updated_at'] = self.updated_at.isoformat()
+        new_dict['created_at'] = self.created_at.isoformat()
         return (new_dict)
