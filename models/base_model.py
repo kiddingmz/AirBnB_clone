@@ -2,6 +2,7 @@
 """This module contains the BaseModel class"""
 from datetime import datetime
 import uuid
+import models
 
 
 class BaseModel:
@@ -20,6 +21,8 @@ class BaseModel:
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
 
+        models.storage.new(self)    
+
     def __str__(self):
         """Prints the string format representation of a BaseModel object"""
         return ("[{}] ({}) {}".format(
@@ -28,6 +31,7 @@ class BaseModel:
     def save(self):
         """Save BaseModel object data into file"""
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """Maps the object's attributes into a dictionary
