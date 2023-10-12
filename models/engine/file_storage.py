@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Defines the file storage"""
 import os
-from json import load, dump, dumps
+from json import load, dump, dumps, loads
 from models.base_model import BaseModel
 from datetime import datetime
 
@@ -36,7 +36,7 @@ class FileStorage():
         self.__file_path = "storage.json"
         if os.path.exists(self.__file_path):
             with open(self.__file_path) as file:
-                #print(load(file))
+                '''print(load(file))
                 for k, v in load(file).items():
                     #print(k, v)
                     base_name = k.split('.')[0]
@@ -44,8 +44,13 @@ class FileStorage():
                     v['created_at'] = datetime.fromisoformat(v['created_at'])
                     v['updated_at'] = datetime.fromisoformat(v['updated_at'])
                     del(v['__class__'])
-                    new_dict = {base_name:v}
-                print(new_dict)
-                    #string = "[{}] ({}) {}".format(base_name, id, v)
-                #print(**string.__dict__)
-                
+                    #new_dict = {base_name:v}
+                #print(new_dict)
+                    string = "[{}] ({}) {}".format(base_name, id, v)
+                print(**string.__dict__)
+                '''
+                new_dict = loads(file.read())
+                for v in new_dict.values():
+                    cls = v['__class__']
+                    self.new(eval(cls)(**v))
+
