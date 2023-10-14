@@ -49,7 +49,7 @@ class FileStorage():
                     string = "[{}] ({}) {}".format(base_name, id, v)
                 print(**string.__dict__)
                 '''
-                new_dict = loads(file.read())
+                new_dict = load(file)
                 for v in new_dict.values():
                     cls = v['__class__']
                     self.new(eval(cls)(**v))
