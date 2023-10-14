@@ -52,5 +52,5 @@ class FileStorage():
                 new_dict = load(file)
                 for v in new_dict.values():
                     cls = v['__class__']
+                    del(v['__class__'])
                     self.new(eval(cls)(**v))
-

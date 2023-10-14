@@ -10,6 +10,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     def emptyline(self):
+        """Empty input"""
         pass
 
     def do_quit(self, line):
@@ -23,7 +24,8 @@ class HBNBCommand(cmd.Cmd):
         self.do_quit
 
     def do_create(self, line):
-        """Creates a new instance of BaseModel"""
+        """Creates a new instance of BaseModel
+        """
         try:
             obj = eval(line.split(' ')[0])()
         except NameError:
@@ -36,17 +38,24 @@ class HBNBCommand(cmd.Cmd):
             print(obj.id)
 
     def do_show(self, line):
-        """Prints the string representation of an instance based on the\
-                class name and id"""
+        """Prints the string representation of an \
+instance based on the class name and id
+        """
         db = storage.all()
-        cls = db.items()[0]
-        print(cls)
-       # obj = eval(line.split(' ')[0])()
-       # print(dir(obj))
-        #cls = line.split(' ')[0]
-        #new_dict = obj.all()
-        #id = line.split(' ')[1]
-        #print(new_dict, cls, id)
+        kys = db.keys()
+        cls_line = line.split(' ')[0]
+        id_line = line.split(' ')[1]
+        print(db)
+        for ks in kys:
+            if cls_line == ks.split('.')[0] and id_line == ks.split('.')[1]:
+                print(db[ks])
+                break
+        # obj = eval(line.split(' ')[0])()
+        # print(dir(obj))
+        # cls = line.split(' ')[0]
+        # new_dict = obj.all()
+        # id = line.split(' ')[1]
+        # print(new_dict, cls, id)
 
 
 if __name__ == '__main__':
