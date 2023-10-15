@@ -85,8 +85,16 @@ by adding or updating attribute
         kys = db.keys()
         cls_line = line.split(' ')[0]
         id_line = line.split(' ')[1]
+        key_line = line.split(' ')[2]
+        val_line = line.split('"')[1]
         if "{}.{}".format(cls_line, id_line) in db:
-            pass
+            #print(db["{}.{}".format(cls_line, id_line)].name)
+            to_up = db["{}.{}".format(cls_line, id_line)].to_dict()
+            print(to_up)
+            to_up[key_line] = type(to_up[key_line])(val_line)
+            db["{}.{}".format(cls_line, id_line)] = to_up
+            print(db["{}.{}".format(cls_line, id_line)])
+            #storage.save()
 
 
 if __name__ == '__main__':
