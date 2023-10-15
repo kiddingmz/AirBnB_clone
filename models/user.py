@@ -1,7 +1,12 @@
 #!/usr/bin/python3
 """Defines the user"""
+from models.base_model import BaseModel
 
 
-def User():
+class User(BaseModel):
     """User"""
-    pass
+
+    email = str()
+    password = str()
+    first_name = str()
+    last_name = str()

@@ -2,6 +2,12 @@
 """Defines the Console"""
 import cmd
 from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 from models import storage
 
 
@@ -88,12 +94,15 @@ by adding or updating attribute
         key_line = line.split(' ')[2]
         val_line = line.split('"')[1]
         if "{}.{}".format(cls_line, id_line) in db:
+            setattr(db["{}.{}".format(cls_line, id_line)], key_line, val_line)
+            storage.save()
             #print(db["{}.{}".format(cls_line, id_line)].name)
-            to_up = db["{}.{}".format(cls_line, id_line)].to_dict()
-            print(to_up)
-            to_up[key_line] = type(to_up[key_line])(val_line)
-            db["{}.{}".format(cls_line, id_line)] = to_up
-            print(db["{}.{}".format(cls_line, id_line)])
+            #for k,v in db.items():
+            #    print(v.to_dict().get(key_line))
+            #to_up = db["{}.{}".format(cls_line, id_line)].to_dict()
+            #print(to_up)
+            #to_up[key_line] = type(to_up[key_line])(val_line)
+            #db["{}.{}".format(cls_line, id_line)] = to_up
             #storage.save()
 
 
