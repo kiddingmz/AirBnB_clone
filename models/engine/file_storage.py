@@ -12,7 +12,6 @@ from models.review import Review
 from datetime import datetime
 
 
-
 class FileStorage():
     """Class File Storage"""
     __file_path = str()
@@ -30,8 +29,6 @@ class FileStorage():
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
         output = {k: v.to_dict() for k, v in self.__objects.items()}
-        #for k, v in self.__objects.items():
-            #output[k] = v.to_dict()
         self.__file_path = "storage.json"
         with open(self.__file_path, "w") as file:
             dump(output, file)
@@ -42,21 +39,8 @@ class FileStorage():
         self.__file_path = "storage.json"
         if os.path.exists(self.__file_path):
             with open(self.__file_path) as file:
-                '''print(load(file))
-                for k, v in load(file).items():
-                    #print(k, v)
-                    base_name = k.split('.')[0]
-                    id = k.split('.')[1]
-                    v['created_at'] = datetime.fromisoformat(v['created_at'])
-                    v['updated_at'] = datetime.fromisoformat(v['updated_at'])
-                    del(v['__class__'])
-                    #new_dict = {base_name:v}
-                #print(new_dict)
-                    string = "[{}] ({}) {}".format(base_name, id, v)
-                print(**string.__dict__)
-                '''
                 new_dict = load(file)
                 for v in new_dict.values():
                     cls = v['__class__']
-                    del(v['__class__'])
+                    del (v['__class__'])
                     self.new(eval(cls)(**v))

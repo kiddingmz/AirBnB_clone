@@ -96,14 +96,6 @@ by adding or updating attribute
         if "{}.{}".format(cls_line, id_line) in db:
             setattr(db["{}.{}".format(cls_line, id_line)], key_line, val_line)
             storage.save()
-            #print(db["{}.{}".format(cls_line, id_line)].name)
-            #for k,v in db.items():
-            #    print(v.to_dict().get(key_line))
-            #to_up = db["{}.{}".format(cls_line, id_line)].to_dict()
-            #print(to_up)
-            #to_up[key_line] = type(to_up[key_line])(val_line)
-            #db["{}.{}".format(cls_line, id_line)] = to_up
-            #storage.save()
 
 
 if __name__ == '__main__':
