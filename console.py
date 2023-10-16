@@ -211,5 +211,22 @@ by adding or updating attribute
         else:
             print(self.ERROR_ID_NOT_FOUND)
 
+    def do_count(self, line):
+        """Number of instances of a class: <class name>.count()"""
+        if not self.validate_len_args(line):
+            return
+
+        cls_name = self.validate_class_name(line)
+        if not cls_name:
+            return
+
+        db = storage.all()
+        i = 0
+        for k, v in db.items():
+            if k.split('.')[0] == cls_name:
+                i += 1
+        print(i)
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
