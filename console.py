@@ -23,6 +23,16 @@ class HBNBCommand(cmd.Cmd):
     ERROR_ATTR = "** attribute name missing **"
     ERROR_ATTR_VALUE = "** value missing **"
 
+    def onecmd(self, line):
+        spliter = line.split(".")
+        if len(spliter) > 1:
+            cls_name = spliter[0]
+            command = spliter[1].replace('()', '')
+            
+            if cls_name in self.valid_classes:
+                line = "{} {}".format(command, cls_name)
+        return super().onecmd(line)
+
     def validate_len_args(self, line):
         if len(line) == 0:
             print(self.ERROR_CLASS_NAME)
