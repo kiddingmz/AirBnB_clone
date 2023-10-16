@@ -27,8 +27,18 @@ class HBNBCommand(cmd.Cmd):
         spliter = line.split(".")
         if len(spliter) > 1:
             cls_name = spliter[0]
-            command = spliter[1].replace('()', '')
-            
+            command = spliter[1].split('("')[0]
+            try:
+                id = line.split('"')[1]
+
+            except:
+                pass
+            else:
+                print(command, cls_name, id)
+                if cls_name in self.valid_classes:
+                    line =  "{} {} {}".format(command, cls_name, id)
+                    return super().onecmd(line)
+            print("Bigg")
             if cls_name in self.valid_classes:
                 line = "{} {}".format(command, cls_name)
         return super().onecmd(line)
