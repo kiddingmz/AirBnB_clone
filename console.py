@@ -9,6 +9,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 from models import storage
+import re
 
 
 class HBNBCommand(cmd.Cmd):
@@ -24,24 +25,32 @@ class HBNBCommand(cmd.Cmd):
     ERROR_ATTR_VALUE = "** value missing **"
 
     def onecmd(self, line):
-        spliter = line.split(".")
-        if len(spliter) > 1:
-            cls_name = spliter[0]
-            command = spliter[1].replace('()', '')
-            try:
-                id = line.split('"')[1]
 
-            except:
-                pass
-            else:
-                command = spliter[1].split('("')[0]
-                print(command, cls_name, id)
-                if cls_name in self.valid_classes:
-                    line =  "{} {} {}".format(command, cls_name, id)
-                    return super().onecmd(line)
+        spliter_args = line.split('.')
+        if len(spliter_args) > 1:
+            cls_name = spliter_args[0]
+            command = spliter_args[1].split('(')[0]
+            r = line.find("(")
 
-            if cls_name in self.valid_classes:
-                line = "{} {}".format(command, cls_name)
+            if r != -1:
+                sub_r = line.split('(')
+                sub_r[1] = sub_r[1].replace(')', '')
+                sub_r[1] = sub_r[1].replace('"', '')
+                args = sub_r[1].split(', ')
+                key_arg = str()
+                value_arg = str()
+                id = args[0]
+
+                if len(args) > 1:
+                    key_arg = args[1]
+                if len(args) > 2:
+                    value_arg = args[2]
+                line = '{} {} {} {} "{}"'.format(
+                        command, cls_name, id, key_arg, value_arg
+                )
+
+            elif cls_name in self.valid_classes:
+                line = '{} {}'.format(command, cls_name)
         return super().onecmd(line)
 
     def validate_len_args(self, line):
@@ -214,7 +223,7 @@ by adding or updating attribute
             else:
                 try:
                     val_line = float(val_line)
-                except:
+                except ValueError:
                     pass
 
             setattr(db["{}.{}".format(cls_line, id_line)], key_line, val_line)
