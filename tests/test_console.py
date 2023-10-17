@@ -26,7 +26,7 @@ class TestHBNBCommand(unittest.TestCase):
         """create command of the console"""
         try:
             os.remove('storage.json')
-        except:
+        except FileNotFoundError:
             pass
         cmd = HBNBCommand()
 
