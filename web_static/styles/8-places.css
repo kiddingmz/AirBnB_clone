@@ -12,12 +12,12 @@ article {
     padding: 20px;
     margin: 20px;
     display: inline-block;
-    min-height: 250px;
+    min-height: 330px;
     vertical-align: top;
 }
 article h2 {
     font-size: 30px;
-    margin-top: 5px;
+    margin-top: -10px;
 }
 div.price_by_night {
     color: #FF5A5F;
@@ -29,12 +29,14 @@ div.price_by_night {
     font-size: 30px;
     position: relative;
     float: right;
-    top: -80px;
+    top: -50px;
 }
 div.information {
     height: 80px;
     border-top: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
+    width: 100%;
+    margin-top: 50px;
 }
 div.max_guest,
 div.number_rooms,
